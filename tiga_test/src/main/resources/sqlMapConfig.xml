@@ -1,0 +1,14 @@
+<configuration>
+    <dataSource>
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql:///test?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root123"></property>
+    </dataSource>
+
+    <!-- 存储mapper.xml 的全路径 -->
+    <mappers>
+        <mapper resource="PersonMapper.xml"></mapper>
+    </mappers>
+
+</configuration>
