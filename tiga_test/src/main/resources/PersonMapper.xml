@@ -6,7 +6,7 @@
     </select>
 
     <select id="findByCondition" resultType="com.ykl.pojo.Person" parameterType="com.ykl.pojo.Person">
-        select * from person where id = #{id} and name = #{name}
+        select id, name, age, remark from person where id = #{id} and name = #{name}
     </select>
 
     <insert id="savePerson" parameterType="com.ykl.pojo.Person" >
