@@ -1,4 +1,12 @@
 <configuration>
+
+    <typeAliases>
+        <!-- 给单独的类起别名  -->
+        <!--<typeAlias type="com.langlang.pojo.User" alias="user"></typeAlias>-->
+        <!-- 该包下所有的类起别名 -->
+        <package name="com.ykl.pojo"/>
+    </typeAliases>
+
     <dataSource>
         <property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="jdbcUrl" value="jdbc:mysql:///test?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"></property>
