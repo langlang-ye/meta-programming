@@ -21,4 +21,7 @@ public interface PersonDao {
     public void updatePerson(Person user) throws Exception;
 
     public void deletePerson(Person person) throws Exception;
+
+    public Person selectPersonById(int id) throws Exception;
+
 }

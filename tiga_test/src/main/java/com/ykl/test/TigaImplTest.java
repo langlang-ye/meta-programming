@@ -64,4 +64,11 @@ public class TigaImplTest {
         personDao.deletePerson(p);
     }
 
+    // 根据id 查询
+    @Test
+    public void selectPersonById() throws Exception {
+        Person person = personDao.selectPersonById(4);
+        System.out.println(person);
+    }
+
 }

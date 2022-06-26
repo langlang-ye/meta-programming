@@ -3,6 +3,7 @@ package com.langlang.pojo;
 import com.langlang.sqlSession.DefaultSqlSession;
 import com.langlang.sqlSession.MapperRegistry;
 import com.langlang.type.TypeAliasRegistry;
+import com.langlang.type.TypeHandlerRegistry;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ public class Configuration {
     private MapperRegistry mapperRegistry = new MapperRegistry();
 
     private TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry(this);
+
+    private TypeHandlerRegistry typeHandlerRegistry = new TypeHandlerRegistry(this);
 
     public void addMapper(Class<?> classType) {
         mapperRegistry.addMapper(classType);
@@ -68,4 +71,11 @@ public class Configuration {
         this.typeAliasRegistry = typeAliasRegistry;
     }
 
+    public TypeHandlerRegistry getTypeHandlerRegistry() {
+        return typeHandlerRegistry;
+    }
+
+    public void setTypeHandlerRegistry(TypeHandlerRegistry typeHandlerRegistry) {
+        this.typeHandlerRegistry = typeHandlerRegistry;
+    }
 }

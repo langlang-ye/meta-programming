@@ -53,4 +53,11 @@ public class PersonDaoImpl implements PersonDao {
         var sqlSession = getSqlSession();
         sqlSession.update("com.ykl.dao.PersonDao.deletePerson", person);
     }
+
+    @Override
+    public Person selectPersonById(int id) throws Exception {
+        var sqlSession = getSqlSession();
+        Person p = sqlSession.selectOne("com.ykl.dao.PersonDao.selectPersonById", id);
+        return p;
+    }
 }

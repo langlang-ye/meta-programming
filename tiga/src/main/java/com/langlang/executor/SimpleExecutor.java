@@ -1,16 +1,19 @@
 package com.langlang.executor;
 
-import cn.hutool.db.handler.PageResultHandler;
 import com.langlang.config.BoundSql;
 import com.langlang.mapping.ParameterMapping;
 import com.langlang.pojo.Configuration;
 import com.langlang.pojo.MappedStatement;
 import com.langlang.type.TypeAliasRegistry;
+import com.langlang.type.TypeHandlerRegistry;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,17 +77,21 @@ public class SimpleExecutor extends BaseExecutor {
 
         String parameterType = mappedStatement.getParameterType();
         Class<?> clazz = getTypeAliasClass(configuration, parameterType);
+        TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
 
         List<ParameterMapping> parameterMappingList = boundSql.getParameterMappingList();
         for (int i = 0; i < parameterMappingList.size(); i++) { // 使用下标遍历, 后面设置参数有用到
             String content = parameterMappingList.get(i).getContent();
+            Object value;
 
-            Field declaredField = clazz.getDeclaredField(content);
-
-            declaredField.setAccessible(true);
-            Object o = declaredField.get(params[0]);
-            preparedStatement.setObject(i + 1, o);
-
+            if (typeHandlerRegistry.hasTypeHandler(clazz)) {  // 判断基础类型
+                value = params[0];
+            } else {
+                Field declaredField = clazz.getDeclaredField(content);
+                declaredField.setAccessible(true);
+                value = declaredField.get(params[0]);
+            }
+            preparedStatement.setObject(i + 1, value);
         }
         return preparedStatement;
     }

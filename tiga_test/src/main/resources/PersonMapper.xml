@@ -25,8 +25,10 @@
         delete from person where id = #{id}
     </delete>
 
-
-
+    <!-- 根据id 查询  测试别名 -->
+    <select id="selectPersonById" resultType="perSon" parameterType="iNt" >
+        select id, name, age, remark from person where id = #{dddd}
+    </select>
 
 
 </mapper>
