@@ -31,6 +31,10 @@ public class SimpleExecutor extends BaseExecutor {
         String resultType = mappedStatement.getResultType();
         Class<?> resultTypeClass = getTypeAliasClass(configuration, resultType);
 
+        // 判断类型 基础类型|包装类型返回值
+        boolean commonDataType = isCommonDataType(resultTypeClass);
+        System.out.println(commonDataType);
+
         List<Object> list = new ArrayList<>();
         while (resultSet.next()) {
             Object o = resultTypeClass.newInstance();
@@ -96,5 +100,11 @@ public class SimpleExecutor extends BaseExecutor {
         return preparedStatement;
     }
 
+    /**
+     * 判断是否是基础数据类型，即 int,double,long等类似格式
+     */
+    public static boolean isCommonDataType(Class clazz){
+        return clazz.isPrimitive();
+    }
 
 }
