@@ -24,4 +24,7 @@ public interface PersonDao {
 
     public Person selectPersonById(int id) throws Exception;
 
+    public Long countNum() throws Exception;
+
+
 }

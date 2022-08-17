@@ -60,4 +60,11 @@ public class PersonDaoImpl implements PersonDao {
         Person p = sqlSession.selectOne("com.ykl.dao.PersonDao.selectPersonById", id);
         return p;
     }
+
+    @Override
+    public Long countNum() throws Exception {
+        var sqlSession = getSqlSession();
+        Long number = sqlSession.selectOne("com.ykl.dao.PersonDao.countNum");
+        return number;
+    }
 }

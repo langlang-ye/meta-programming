@@ -30,5 +30,8 @@
         select id, name, age, remark from person where id = #{dddd}
     </select>
 
+    <select id="countNum" resultType="iNt">
+        select count(*) from person
+    </select>
 
 </mapper>

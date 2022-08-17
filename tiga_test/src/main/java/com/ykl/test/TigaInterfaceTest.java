@@ -82,5 +82,12 @@ public class TigaInterfaceTest {
         System.out.println(person);
     }
 
+    // 统计人数
+    @Test
+    public void countNum() throws Exception {
+        Long number = personDao.countNum();
+        System.out.println(number);
+    }
+
 
 }

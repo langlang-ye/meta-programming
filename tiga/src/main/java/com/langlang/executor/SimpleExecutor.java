@@ -30,26 +30,31 @@ public class SimpleExecutor extends BaseExecutor {
 
         String resultType = mappedStatement.getResultType();
         Class<?> resultTypeClass = getTypeAliasClass(configuration, resultType);
-
-        // 判断类型 基础类型|包装类型返回值
-        boolean commonDataType = isCommonDataType(resultTypeClass);
-        System.out.println(commonDataType);
+        TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
 
         List<Object> list = new ArrayList<>();
         while (resultSet.next()) {
-            Object o = resultTypeClass.newInstance();
-            // 解析元数据
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            for(int i = 1; i <= metaData.getColumnCount(); i++) {
-                String columnName = metaData.getColumnName(i); // 字段名
-                Object value = resultSet.getObject(columnName); // 字段值
 
-                // 使用反射或者内省, 根据数据库表和实体类的对应关系, 完成封装
-                PropertyDescriptor propertyDescriptor = new PropertyDescriptor(columnName, resultTypeClass);
-                Method writeMethod = propertyDescriptor.getWriteMethod();
-                writeMethod.invoke(o, value);
+            if (typeHandlerRegistry.hasTypeHandler(resultTypeClass)) {  // 判断基础类型
+                // 简单类型
+                Object object = resultSet.getObject(1);
+                list.add(object);
+            } else {
+
+                Object o = resultTypeClass.newInstance();
+                // 解析元数据
+                ResultSetMetaData metaData = resultSet.getMetaData();
+                for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                    String columnName = metaData.getColumnName(i); // 字段名
+                    Object value = resultSet.getObject(columnName); // 字段值
+
+                    // 使用反射或者内省, 根据数据库表和实体类的对应关系, 完成封装
+                    PropertyDescriptor propertyDescriptor = new PropertyDescriptor(columnName, resultTypeClass);
+                    Method writeMethod = propertyDescriptor.getWriteMethod();
+                    writeMethod.invoke(o, value);
+                }
+                list.add(o);
             }
-            list.add(o);
         }
         return (List<E>) list;
     }
@@ -98,13 +103,6 @@ public class SimpleExecutor extends BaseExecutor {
             preparedStatement.setObject(i + 1, value);
         }
         return preparedStatement;
-    }
-
-    /**
-     * 判断是否是基础数据类型，即 int,double,long等类似格式
-     */
-    public static boolean isCommonDataType(Class clazz){
-        return clazz.isPrimitive();
     }
 
 }

@@ -71,4 +71,11 @@ public class TigaImplTest {
         System.out.println(person);
     }
 
+    // 统计数量
+    @Test
+    public void countNum() throws Exception {
+        Long number = personDao.countNum();
+        System.out.println(number);
+    }
+
 }
