@@ -34,4 +34,8 @@
         select count(*) from person
     </select>
 
+    <select id="listName" resultType="string">
+        select name from person
+    </select>
+
 </mapper>

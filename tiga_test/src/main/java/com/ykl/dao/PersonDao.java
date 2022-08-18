@@ -26,5 +26,5 @@ public interface PersonDao {
 
     public Long countNum() throws Exception;
 
-
+    public List<String> listName() throws Exception;
 }

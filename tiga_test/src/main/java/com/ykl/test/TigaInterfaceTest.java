@@ -89,5 +89,15 @@ public class TigaInterfaceTest {
         System.out.println(number);
     }
 
+    // 查询所有的名字
+    @Test
+    public void listName() throws Exception {
+        List<String> names = personDao.listName();
+        for (String name : names) {
+            System.out.println(name);
+        }
+
+    }
+
 
 }

@@ -67,4 +67,11 @@ public class PersonDaoImpl implements PersonDao {
         Long number = sqlSession.selectOne("com.ykl.dao.PersonDao.countNum");
         return number;
     }
+
+    @Override
+    public List<String> listName() throws Exception {
+        var sqlSession = getSqlSession();
+        List<String> names = sqlSession.selectList("com.ykl.dao.PersonDao.listName");
+        return names;
+    }
 }
