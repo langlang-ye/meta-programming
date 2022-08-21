@@ -27,4 +27,6 @@ public interface PersonDao {
     public Long countNum() throws Exception;
 
     public List<String> listName() throws Exception;
+
+    public int selectAgeById(int id) throws Exception;
 }
