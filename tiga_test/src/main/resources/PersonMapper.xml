@@ -42,4 +42,9 @@
         select age from person where id = #{id}
     </select>
 
+    <select id="selectAgeByName" resultType="int" parameterType="String">
+        select age from person where name = #{name}
+    </select>
+
+
 </mapper>

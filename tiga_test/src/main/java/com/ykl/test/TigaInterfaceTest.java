@@ -105,6 +105,12 @@ public class TigaInterfaceTest {
         System.out.println(age);
     }
 
+    // 根据 name 查询年龄
+    @Test
+    public void selectAgeByName() throws Exception {
+        int age = personDao.selectAgeByName("tom");
+        System.out.println(age);
+    }
 
 
 }

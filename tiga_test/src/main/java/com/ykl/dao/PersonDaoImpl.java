@@ -81,4 +81,11 @@ public class PersonDaoImpl implements PersonDao {
         int age = sqlSession.selectOne("com.ykl.dao.PersonDao.selectAgeById", id);
         return age;
     }
+
+    @Override
+    public int selectAgeByName(String name) throws Exception {
+        var sqlSession = getSqlSession();
+        int age = sqlSession.selectOne("com.ykl.dao.PersonDao.selectAgeByName", name);
+        return age;
+    }
 }

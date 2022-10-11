@@ -29,4 +29,7 @@ public interface PersonDao {
     public List<String> listName() throws Exception;
 
     public int selectAgeById(int id) throws Exception;
+
+    public int selectAgeByName(String name) throws Exception;
+
 }
