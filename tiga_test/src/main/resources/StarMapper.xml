@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.ykl.dao.StarDao" >
+    <resultMap id="BaseResultMap" type="com.ykl.pojo.Stu" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="age" property="age" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="brithday" property="brithday" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+</mapper>

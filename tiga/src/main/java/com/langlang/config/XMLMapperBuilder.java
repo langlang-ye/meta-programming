@@ -49,6 +49,7 @@ public class XMLMapperBuilder {
             mappedStatement.setSqlCommandType(sqlCommandType);
 
             String key = namespace + "." + id;
+            // TODO 添加前需要验证 key 是否唯一
             configuration.getMappedStatementMap().put(key, mappedStatement);
 
         }

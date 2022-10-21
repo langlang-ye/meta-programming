@@ -89,10 +89,15 @@ public class XMLConfigBuilder {
         return configuration;
     }
 
-    private String parseXmlMapper(String mapperPath) throws DocumentException {
+    private String parseXmlMapper(String mapperPath) throws DocumentException, ClassNotFoundException {
         InputStream resourceAsStream = Resources.getResourceAsStream(mapperPath);
         XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(configuration);
-        return xmlMapperBuilder.parce(resourceAsStream);
+        String namespace = xmlMapperBuilder.parce(resourceAsStream);
+
+        Class<?> type = ReflectionUtils.classForName(namespace);
+        MapperAnnotationBuilder parser = new MapperAnnotationBuilder(configuration, type);
+        parser.parse();
+        return namespace;
     }
 
     /**
@@ -100,7 +105,7 @@ public class XMLConfigBuilder {
      * aa.bb.cc.XXMapper.xml --> aa/bb/cc/XXMapper.xml
      * @param packageName
      */
-    private void parseXmlMappers(String packageName) throws DocumentException {
+    private void parseXmlMappers(String packageName) throws DocumentException, ClassNotFoundException {
         Set<Class<?>> classes = ClassUtil.scanPackage(packageName);
         for (Class<?> tClass : classes) {
             String name = tClass.getName();
@@ -108,7 +113,13 @@ public class XMLConfigBuilder {
 
             InputStream resourceAsStream = Resources.getResourceAsStream(mapperPath);
             XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(configuration);
-            xmlMapperBuilder.parce(resourceAsStream);
+            String namespace = xmlMapperBuilder.parce(resourceAsStream);
+
+            Class<?> type = ReflectionUtils.classForName(namespace);
+            MapperAnnotationBuilder parser = new MapperAnnotationBuilder(configuration, type);
+            parser.parse();
+
+
         }
     }
 

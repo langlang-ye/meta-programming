@@ -16,7 +16,9 @@
 
     <!-- 存储mapper.xml 的全路径 -->
     <mappers>
-        <mapper resource="PersonMapper.xml"></mapper>
+        <!--<mapper resource="PersonMapper.xml"></mapper>-->
+        <!-- 测试注解版的实现 -->
+        <mapper resource="StarMapper.xml"></mapper>
     </mappers>
 
 </configuration>
