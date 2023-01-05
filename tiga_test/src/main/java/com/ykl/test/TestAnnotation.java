@@ -60,11 +60,11 @@ public class TestAnnotation {
 
 
     //
-   /* @Test
+    @Test
     public void testFindAll() {
         List<Star> all = stuDao.findAll();
         for (Star star : all) {
             System.out.println(star);
         }
-    }*/
+    }
 }

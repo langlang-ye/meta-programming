@@ -16,9 +16,10 @@
 
     <!-- 存储mapper.xml 的全路径 -->
     <mappers>
+        <!-- 接口与实现类的测试 -->
         <!--<mapper resource="PersonMapper.xml"></mapper>-->
         <!-- 测试注解版的实现 -->
-        <mapper resource="StarMapper.xml"></mapper>
+      <mapper resource="StarMapper.xml"></mapper>
     </mappers>
 
 </configuration>

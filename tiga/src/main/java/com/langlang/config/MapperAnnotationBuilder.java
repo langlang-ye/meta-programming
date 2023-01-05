@@ -10,7 +10,6 @@ import com.langlang.pojo.SqlCommandType;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
@@ -79,8 +78,7 @@ public class MapperAnnotationBuilder {
     }
 
     private Class<?> getReturnType(Method method) {
-        Class<?> returnType = method.getReturnType();
-        Type returnTypeT = method.getGenericReturnType();
+        Class<?> returnType = TypeParameterResolver.resolveReturnType(method, type);
         return returnType;
     }
 

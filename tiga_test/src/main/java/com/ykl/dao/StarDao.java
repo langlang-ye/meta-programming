@@ -22,8 +22,8 @@ public interface StarDao {
     @Select("select * from star where id = #{id}")
     Star select(int id);
 
-//    @Select("select * from star")
-//    List<Star> findAll();
+    @Select("select * from star")
+    List<Star> findAll();
 
 
 }
