@@ -40,8 +40,8 @@ public class SimpleExecutor extends BaseExecutor {
                 Object object = resultSet.getObject(1);
                 list.add(object);
             } else {
-
-                Object o = resultTypeClass.newInstance();
+                // jdk9中clazz.newInstance()被Deprecated掉了; 推荐 getDeclaredConstructor().newInstance()
+                Object o = resultTypeClass.getDeclaredConstructor().newInstance();
                 // 解析元数据
                 ResultSetMetaData metaData = resultSet.getMetaData();
                 for (int i = 1; i <= metaData.getColumnCount(); i++) {

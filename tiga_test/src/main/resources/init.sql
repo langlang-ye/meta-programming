@@ -34,3 +34,20 @@ INSERT INTO `person` VALUES ('1', 'Spike', '8', '汪汪');
 INSERT INTO `person` VALUES ('2', 'tom', '6', '汪汪');
 INSERT INTO `person` VALUES ('3', 'jerry', '3', '汪汪队');
 INSERT INTO `person` VALUES ('4', 'Butch', '5', '汪汪队');
+
+-- ----------------------------
+-- Table structure for star
+-- ----------------------------
+DROP TABLE IF EXISTS `star`;
+CREATE TABLE `star` (
+    `id` int(10) NOT NULL,
+    `name` varchar(255) DEFAULT NULL,
+    `created` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of star
+-- ----------------------------
+INSERT INTO `star` VALUES ('1', '62C', '2022-10-19 14:48:58');
+INSERT INTO `star` VALUES ('3', '62e', '2022-10-21 01:09:54');
+
