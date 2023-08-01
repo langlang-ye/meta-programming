@@ -4,6 +4,7 @@ import com.langlang.io.Resources;
 import com.langlang.sqlSession.SqlSession;
 import com.langlang.sqlSession.SqlSessionFactoryBuilder;
 import com.ykl.pojo.Person;
+import com.ykl.pojo.PersonBO;
 import org.dom4j.DocumentException;
 
 import java.beans.PropertyVetoException;
@@ -94,5 +95,15 @@ public class PersonDaoImpl implements PersonDao {
         var sqlSession = getSqlSession();
         int age = sqlSession.selectOne("com.ykl.dao.PersonDao.selectAgeById", name);
         return age;
+    }
+
+    @Override
+    public List<Person> selectListByCondition(PersonBO personBO) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Long selectCountByCondition(PersonBO personBO) throws Exception {
+        return null;
     }
 }

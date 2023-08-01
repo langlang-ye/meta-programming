@@ -50,5 +50,14 @@
         select age from person where name = #{name}
     </select>
 
+    <select id="selectListByCondition" resultType="person" parameterType="PersonBO">
+        select id, name, age, remark from person
+        order by id
+        limit #{page}, #{pageSize}
+    </select>
+
+    <select id="selectCountByCondition" resultType="java.lang.Long">
+        select count(*) from person
+    </select>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.ykl.dao;
 
 import com.ykl.pojo.Person;
+import com.ykl.pojo.PersonBO;
 
 import java.util.List;
 
@@ -34,5 +35,6 @@ public interface PersonDao {
 
     public int selectAgeById(String name) throws Exception;
 
-
+    public List<Person> selectListByCondition(PersonBO personBO) throws Exception;
+    public Long selectCountByCondition(PersonBO personBO) throws Exception;
 }

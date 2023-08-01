@@ -2,8 +2,10 @@ package com.ykl.test;
 
 import com.langlang.io.Resources;
 import com.langlang.sqlSession.SqlSessionFactoryBuilder;
+import com.ykl.common.Page;
 import com.ykl.dao.PersonDao;
 import com.ykl.pojo.Person;
+import com.ykl.pojo.PersonBO;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -118,6 +120,42 @@ public class TigaInterfaceTest {
         int age = personDao.selectAgeById("tom");
         System.out.println(age);
     }
+
+    // 分页查询
+    @Test
+    public void selectListByCondition() throws Exception {
+        int page = 3;
+        int pageSize = 5;
+
+        PersonBO personBO = new PersonBO();
+        personBO.setPage((page - 1) * pageSize);
+        personBO.setPageSize(pageSize);
+
+        List<Person> persons = personDao.selectListByCondition(personBO);
+
+        Long count = personDao.selectCountByCondition(personBO);
+
+        System.out.println(persons);
+        System.out.println(count);
+
+        Page<Person> pages = new Page<>(page);
+        pages.setList(persons);
+        pages.setTotalItemNumber(count);
+
+        System.out.println("当前页码:" + pages.getPageNo());
+        System.out.println("当前页数据:" + pages.getList());
+        System.out.println("总页数:" + pages.getTotalPageNumber());
+        System.out.println("每页长度:" + pages.getPageSize());
+
+
+
+
+
+
+
+
+    }
+
 
 
 }
