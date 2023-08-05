@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author langlang.ye
@@ -95,10 +96,16 @@ public class SimpleExecutor extends BaseExecutor {
 
             if (typeHandlerRegistry.hasTypeHandler(clazz)) {  // 判断基础类型
                 value = params[0];
+            }
+            if (params[0] instanceof Map) {
+                Map<String, Object> map = (Map) params[0];
+                value = map.get(content);
+
             } else {
                 Field declaredField = clazz.getDeclaredField(content);
                 declaredField.setAccessible(true);
                 value = declaredField.get(params[0]);
+
             }
             preparedStatement.setObject(i + 1, value);
         }

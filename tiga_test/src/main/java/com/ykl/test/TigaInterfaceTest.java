@@ -9,7 +9,9 @@ import com.ykl.pojo.PersonBO;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 测试接口的方式:
@@ -123,7 +125,7 @@ public class TigaInterfaceTest {
 
     // 分页查询
     @Test
-    public void selectListByCondition() throws Exception {
+    public void selectPagesByCondition() throws Exception {
         int page = 3;
         int pageSize = 5;
 
@@ -147,12 +149,32 @@ public class TigaInterfaceTest {
         System.out.println("总页数:" + pages.getTotalPageNumber());
         System.out.println("每页长度:" + pages.getPageSize());
 
+    }
 
+    @Test
+    public void selectPagesByMap() throws Exception {
+        int page = 3;
+        int pageSize = 5;
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("page", (page - 1) * pageSize);
+        map.put("pageSize", pageSize);
 
+        List<Person> persons = personDao.selectListByMap(map);
 
+        Long count = personDao.selectCountByMap(map);
 
+        System.out.println(persons);
+        System.out.println(count);
 
+        Page<Person> pages = new Page<>(page);
+        pages.setList(persons);
+        pages.setTotalItemNumber(count);
+
+        System.out.println("当前页码:" + pages.getPageNo());
+        System.out.println("当前页数据:" + pages.getList());
+        System.out.println("总页数:" + pages.getTotalPageNumber());
+        System.out.println("每页长度:" + pages.getPageSize());
 
     }
 

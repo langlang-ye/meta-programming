@@ -4,6 +4,7 @@ import com.ykl.pojo.Person;
 import com.ykl.pojo.PersonBO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author langlang.ye
@@ -37,4 +38,8 @@ public interface PersonDao {
 
     public List<Person> selectListByCondition(PersonBO personBO) throws Exception;
     public Long selectCountByCondition(PersonBO personBO) throws Exception;
+
+    public List<Person> selectListByMap(Map<String, Object> map);
+
+    public Long selectCountByMap(Map<String, Object> map);
 }

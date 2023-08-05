@@ -9,6 +9,7 @@ import org.dom4j.DocumentException;
 
 import java.beans.PropertyVetoException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author langlang.ye
@@ -104,6 +105,16 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public Long selectCountByCondition(PersonBO personBO) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Person> selectListByMap(Map<String, Object> map) {
+        return null;
+    }
+
+    @Override
+    public Long selectCountByMap(Map<String, Object> map) {
         return null;
     }
 }

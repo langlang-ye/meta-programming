@@ -56,8 +56,17 @@
         limit #{page}, #{pageSize}
     </select>
 
-    <select id="selectCountByCondition" resultType="java.lang.Long">
+    <select id="selectCountByCondition"  resultType="java.lang.Long" parameterType="PersonBO">
         select count(*) from person
     </select>
 
+    <select id="selectListByMap" resultType="person" parameterType="java.util.Map">
+        select id, name, age, remark from person
+        order by id
+        limit #{page}, #{pageSize}
+    </select>
+
+    <select id="selectCountByMap" resultType="java.lang.Long" parameterType="java.util.Map">
+        select count(*) from person
+    </select>
 </mapper>
