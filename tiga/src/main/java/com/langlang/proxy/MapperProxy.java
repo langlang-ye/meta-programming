@@ -31,10 +31,10 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object... params) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object... param) throws Throwable {
         // 获取 mapperMethod 对象并执行sql
         final MapperMethod mapperMethod = cachedMapperMethod(method);
-        return mapperMethod.execute(sqlSession, params);
+        return mapperMethod.execute(sqlSession, param);
     }
 
 }

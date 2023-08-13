@@ -34,7 +34,7 @@ public class MapperMethod {
         this.method = new MethodSignature(method);
     }
 
-    public Object execute(SqlSession sqlSession, Object... params) throws Exception {
+    public Object execute(SqlSession sqlSession, Object params) throws Exception {
         Object result = null;
         switch (command.getType()) {
             case INSERT : {

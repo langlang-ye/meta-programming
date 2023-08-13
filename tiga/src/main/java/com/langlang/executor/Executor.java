@@ -20,7 +20,7 @@ public interface Executor {
      * @return
      * @throws Exception
      */
-    <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, Object... params) throws Exception;
+    <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, Object params) throws Exception;
 
     /**
      * insert update delete 可以统一对外提供一个接口
@@ -31,6 +31,6 @@ public interface Executor {
      * @return
      * @throws Exception
      */
-    int update(Configuration configuration, MappedStatement mappedStatement, Object... params) throws Exception;
+    int update(Configuration configuration, MappedStatement mappedStatement, Object params) throws Exception;
 
 }

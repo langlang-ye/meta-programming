@@ -25,8 +25,8 @@ import java.util.Map;
 public class SimpleExecutor extends BaseExecutor {
 
     @Override
-    protected <E> List<E> doQuery(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object... params) throws Exception {
-        PreparedStatement preparedStatement = parameterHandler(configuration, mappedStatement, boundSql, params);
+    protected <E> List<E> doQuery(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object param) throws Exception {
+        PreparedStatement preparedStatement = parameterHandler(configuration, mappedStatement, boundSql, param);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         String resultType = mappedStatement.getResultType();
@@ -61,7 +61,7 @@ public class SimpleExecutor extends BaseExecutor {
     }
 
     @Override
-    protected int doUpdate(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object... params) throws Exception {
+    protected int doUpdate(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object params) throws Exception {
         PreparedStatement preparedStatement = parameterHandler(configuration, mappedStatement, boundSql, params);
         int result = preparedStatement.executeUpdate();
         return result;
@@ -77,11 +77,11 @@ public class SimpleExecutor extends BaseExecutor {
      * @param configuration
      * @param mappedStatement
      * @param boundSql
-     * @param params
+     * @param param
      * @return
      * @throws Exception
      */
-    public PreparedStatement parameterHandler(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object... params) throws Exception {
+    public PreparedStatement parameterHandler(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object param) throws Exception {
         Connection connection = configuration.getDataSource().getConnection(); // 获取连接
         PreparedStatement preparedStatement = connection.prepareStatement(boundSql.getSqlText()); // 获取预处理对象
 
@@ -95,16 +95,16 @@ public class SimpleExecutor extends BaseExecutor {
             Object value;
 
             if (typeHandlerRegistry.hasTypeHandler(clazz)) {  // 判断基础类型
-                value = params[0];
+                value = param;
             }
-            if (params[0] instanceof Map) {
-                Map<String, Object> map = (Map) params[0];
+            if (param instanceof Map) {
+                Map<String, Object> map = (Map) param;
                 value = map.get(content);
 
             } else {
                 Field declaredField = clazz.getDeclaredField(content);
                 declaredField.setAccessible(true);
-                value = declaredField.get(params[0]);
+                value = declaredField.get(param);
 
             }
             preparedStatement.setObject(i + 1, value);

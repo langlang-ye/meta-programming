@@ -44,7 +44,7 @@ public abstract class BaseExecutor implements Executor {
      * @param params
      * @return
      */
-    private String createCacheKey(MappedStatement mappedStatement, BoundSql boundSql, Object... params) {
+    private String createCacheKey(MappedStatement mappedStatement, BoundSql boundSql, Object params) {
         // 简化版的key: id + [params] + sql
         // 实际 mybatis 是将 id、offset、limit、sql、Environment.id 以及对应的参数生成的
         if (params == null) {
@@ -54,7 +54,7 @@ public abstract class BaseExecutor implements Executor {
     }
 
     @Override
-    public <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, Object... params) throws Exception {
+    public <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, Object params) throws Exception {
         String sql = mappedStatement.getSql();
         BoundSql boundSql = getBoundSql(sql);
 
@@ -74,7 +74,7 @@ public abstract class BaseExecutor implements Executor {
      * @return
      * @throws Exception
      */
-    public <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, String key, BoundSql boundSql, Object... params) throws Exception {
+    public <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, String key, BoundSql boundSql, Object params) throws Exception {
         // 每次查询优先从缓存中查找, 缓存中没有再查询数据库
         List<E> list = (List<E>) localCache.get(key);
         if(list != null) {
@@ -84,17 +84,17 @@ public abstract class BaseExecutor implements Executor {
         return queryDB(configuration, mappedStatement, key, boundSql, params);
     }
 
-    private <E> List<E> queryDB(Configuration configuration, MappedStatement mappedStatement, String key, BoundSql boundSql, Object... params) throws Exception {
+    private <E> List<E> queryDB(Configuration configuration, MappedStatement mappedStatement, String key, BoundSql boundSql, Object params) throws Exception {
         List<E> list = doQuery(configuration, mappedStatement, boundSql, params);
         localCache.put(key, list);
         return list;
     }
 
-    protected abstract <E> List<E> doQuery(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object... params) throws Exception;
+    protected abstract <E> List<E> doQuery(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object params) throws Exception;
 
 
     @Override
-    public int update(Configuration configuration, MappedStatement mappedStatement, Object... params) throws Exception {
+    public int update(Configuration configuration, MappedStatement mappedStatement, Object params) throws Exception {
         String sql = mappedStatement.getSql();
         BoundSql boundSql = getBoundSql(sql);
 
@@ -111,7 +111,7 @@ public abstract class BaseExecutor implements Executor {
      * @return
      * @throws Exception
      */
-    protected abstract int doUpdate(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object... params) throws  Exception;
+    protected abstract int doUpdate(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object params) throws  Exception;
 
     /**
      * 清空缓存

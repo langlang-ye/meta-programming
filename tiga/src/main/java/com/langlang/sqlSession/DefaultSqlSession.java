@@ -30,17 +30,22 @@ public class DefaultSqlSession implements SqlSession {
     }
 
     @Override
-    public <E> List<E> selectList(String statementId, Object... params) throws Exception {
+    public <E> List<E> selectList(String statementId, Object param) throws Exception {
         // 将要去完成 executor 中的 query 方法的调用
         MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementId);
-        List<E> list = executor.query(configuration, mappedStatement, params);
+        List<E> list = executor.query(configuration, mappedStatement, param);
 
         return list;
     }
 
     @Override
-    public <T> T selectOne(String statementId, Object... params) throws Exception {
-        List<T> lists = selectList(statementId, params);
+    public <E> List<E> selectList(String statementId) throws Exception {
+        return this.selectList(statementId, null);
+    }
+
+    @Override
+    public <T> T selectOne(String statementId, Object param) throws Exception {
+        List<T> lists = selectList(statementId, param);
         if (lists.size() == 1) {
             return lists.get(0);
         } else {
@@ -48,29 +53,34 @@ public class DefaultSqlSession implements SqlSession {
         }
     }
 
+    @Override
+    public <T> T selectOne(String statementId) throws Exception {
+        return this.selectOne(statementId, null);
+    }
+
     /**
      * 添加 删除 更新 都是调用 executor.update 方法, 最后的实现 preparedStatement.executeUpdate()
      * @param statementId
-     * @param params
+     * @param param
      * @return
      * @throws Exception
      */
     @Override
-    public int update(String statementId, Object... params) throws Exception {
+    public int update(String statementId, Object param) throws Exception {
         MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementId);
-        int update = executor.update(configuration, mappedStatement, params);
+        int update = executor.update(configuration, mappedStatement, param);
         return update;
     }
 
     @Override
-    public int insert(String statementId, Object... params) throws Exception {
-        int insert = update(statementId, params);
+    public int insert(String statementId, Object param) throws Exception {
+        int insert = update(statementId, param);
         return insert;
     }
 
     @Override
-    public int delete(String statementId, Object... params) throws Exception {
-        int delete = update(statementId, params);
+    public int delete(String statementId, Object param) throws Exception {
+        int delete = update(statementId, param);
         return delete;
     }
 
