@@ -46,7 +46,7 @@
         select age from person where name = #{name}
     </select>-->
     <!-- sql的唯一标识（对应Java里的方法重载）重复， 由于底层是namespace.id 为key, 存储在map 中，会出现map 的value 覆盖的情况 -->
-    <select id="selectAgeById" resultType="int" parameterType="String">
+    <select id="selectAgeByName" resultType="int" parameterType="String">
         select age from person where name = #{name}
     </select>
 

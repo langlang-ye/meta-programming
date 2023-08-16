@@ -34,7 +34,7 @@ public interface PersonDao {
 
 //    public int selectAgeByName(String name) throws Exception;
 
-    public int selectAgeById(String name) throws Exception;
+    public int selectAgeByName(String name) throws Exception;
 
     public List<Person> selectListByCondition(PersonBO personBO) throws Exception;
     public Long selectCountByCondition(PersonBO personBO) throws Exception;

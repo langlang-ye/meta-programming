@@ -92,9 +92,9 @@ public class PersonDaoImpl implements PersonDao {
     }*/
 
     @Override
-    public int selectAgeById(String name) throws Exception {
+    public int selectAgeByName(String name) throws Exception {
         var sqlSession = getSqlSession();
-        int age = sqlSession.selectOne("com.ykl.dao.PersonDao.selectAgeById", name);
+        int age = sqlSession.selectOne("com.ykl.dao.PersonDao.selectAgeByName", name);
         return age;
     }
 

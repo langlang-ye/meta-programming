@@ -96,8 +96,7 @@ public class SimpleExecutor extends BaseExecutor {
 
             if (typeHandlerRegistry.hasTypeHandler(clazz)) {  // 判断基础类型
                 value = param;
-            }
-            if (param instanceof Map) {
+            } else if (param instanceof Map) {  // 判断 map 类型
                 Map<String, Object> map = (Map) param;
                 value = map.get(content);
 

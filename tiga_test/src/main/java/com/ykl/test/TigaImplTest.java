@@ -104,7 +104,7 @@ public class TigaImplTest {
     // 根据 name 查询年龄
     @Test
     public void selectAgeByName() throws Exception {
-        int age = personDao.selectAgeById("tom");
+        int age = personDao.selectAgeByName("tom");
         System.out.println(age);
     }
 
