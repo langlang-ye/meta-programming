@@ -34,27 +34,31 @@ public class MapperMethod {
         this.method = new MethodSignature(method);
     }
 
-    public Object execute(SqlSession sqlSession, Object params) throws Exception {
+    public Object execute(SqlSession sqlSession, Object[] params) throws Exception {
         Object result = null;
         switch (command.getType()) {
             case INSERT : {
-                result = sqlSession.insert(command.getName(), params);
+                Object param = convertArgsToSqlCommandParam(params);
+                result = sqlSession.insert(command.getName(), param);
                 break;
             }
             case SELECT : {
+                Object param = convertArgsToSqlCommandParam(params);
                 if (method.isReturnsMany()) {
-                    result = sqlSession.selectList(command.getName(), params);
+                    result = sqlSession.selectList(command.getName(), param);
                 } else {
-                    result = sqlSession.selectOne(command.getName(), params);
+                    result = sqlSession.selectOne(command.getName(), param);
                 }
                 break;
             }
             case UPDATE: {
-                result = sqlSession.update(command.getName(), params);
+                Object param = convertArgsToSqlCommandParam(params);
+                result = sqlSession.update(command.getName(), param);
                 break;
             }
             case DELETE: {
-                result = sqlSession.delete(command.getName(), params);
+                Object param = convertArgsToSqlCommandParam(params);
+                result = sqlSession.delete(command.getName(), param);
                 break;
             }
         }
@@ -109,6 +113,15 @@ public class MapperMethod {
         }
 
     }
+
+    public Object convertArgsToSqlCommandParam(Object[] args) {
+        if (args == null) {
+            return null;
+        } else {
+            return args[0];
+        }
+    }
+
 
 
 }
