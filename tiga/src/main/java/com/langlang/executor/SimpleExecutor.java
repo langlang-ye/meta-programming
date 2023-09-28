@@ -83,6 +83,8 @@ public class SimpleExecutor extends BaseExecutor {
      */
     public PreparedStatement parameterHandler(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object param) throws Exception {
         Connection connection = configuration.getDataSource().getConnection(); // 获取连接
+
+        System.out.println("==>  Preparing: " + boundSql.getSqlText());
         PreparedStatement preparedStatement = connection.prepareStatement(boundSql.getSqlText()); // 获取预处理对象
 
         String parameterType = mappedStatement.getParameterType();
@@ -90,6 +92,7 @@ public class SimpleExecutor extends BaseExecutor {
         TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
 
         List<ParameterMapping> parameterMappingList = boundSql.getParameterMappingList();
+        System.out.println("==> Parameters: " + convertParamToString(typeHandlerRegistry, param ,clazz));
         for (int i = 0; i < parameterMappingList.size(); i++) { // 使用下标遍历, 后面设置参数有用到
             String content = parameterMappingList.get(i).getContent();
             Object value;
@@ -109,6 +112,21 @@ public class SimpleExecutor extends BaseExecutor {
             preparedStatement.setObject(i + 1, value);
         }
         return preparedStatement;
+    }
+
+    private String convertParamToString(TypeHandlerRegistry typeHandlerRegistry, Object param, Class<?> clazz) {
+        if (param == null) {
+            return null;
+        } else if (typeHandlerRegistry.hasTypeHandler(clazz)) {  // 判断基础类型
+            return param.toString();
+        } else if (param instanceof Map) {  // 判断 map 类型
+            Map<String, Object> map = (Map) param;
+            return map.toString();
+
+        } else { // 自定义类型的
+            return param.toString();
+
+        }
     }
 
 }

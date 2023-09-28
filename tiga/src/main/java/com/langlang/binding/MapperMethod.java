@@ -34,6 +34,7 @@ public class MapperMethod {
         this.method = new MethodSignature(method);
     }
 
+    // 反射传入的参数是可变长参数, 这里用数组接收
     public Object execute(SqlSession sqlSession, Object[] params) throws Exception {
         Object result = null;
         switch (command.getType()) {
