@@ -70,6 +70,21 @@ public class XMLConfigBuilder {
             }
         }
 
+        // 解析 settings 配置
+        Element settings = rootElement.element("settings");
+        if(settings !=null) {
+            List<Element> settingList = settings.elements();
+            System.out.println(settingList.size());
+            for (Element element : settingList) {
+               if ("setting".equals(element.getName())) {
+                   String value = element.attributeValue("name");
+                   System.out.println(value);
+               }
+
+            }
+
+        }
+
         // 解析别名
         Element typeAliases = rootElement.element("typeAliases");
         if (typeAliases != null) {

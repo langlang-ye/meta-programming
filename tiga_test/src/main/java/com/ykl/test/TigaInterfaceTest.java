@@ -2,6 +2,7 @@ package com.ykl.test;
 
 import com.langlang.io.Resources;
 import com.langlang.sqlSession.SqlSessionFactoryBuilder;
+import com.langlang.utils.TigaVersion;
 import com.ykl.common.Page;
 import com.ykl.dao.PersonDao;
 import com.ykl.pojo.Person;
@@ -177,6 +178,13 @@ public class TigaInterfaceTest {
         System.out.println("每页长度:" + pages.getPageSize());
 
     }
+
+    @Test
+    public void testVersion() {
+        String version = TigaVersion.getVersion();
+        System.out.println(version);
+    }
+
 
 
 

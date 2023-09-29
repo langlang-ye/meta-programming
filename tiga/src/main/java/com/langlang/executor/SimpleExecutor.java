@@ -92,7 +92,6 @@ public class SimpleExecutor extends BaseExecutor {
         TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
 
         List<ParameterMapping> parameterMappingList = boundSql.getParameterMappingList();
-        System.out.println("==> Parameters: " + convertParamToString(typeHandlerRegistry, param ,clazz));
         for (int i = 0; i < parameterMappingList.size(); i++) { // 使用下标遍历, 后面设置参数有用到
             String content = parameterMappingList.get(i).getContent();
             Object value;
@@ -109,6 +108,8 @@ public class SimpleExecutor extends BaseExecutor {
                 value = declaredField.get(param);
 
             }
+            // todo 存在无用参数的输出
+            System.out.println("==> Parameters: " + convertParamToString(typeHandlerRegistry, param, clazz));
             preparedStatement.setObject(i + 1, value);
         }
         return preparedStatement;
@@ -121,6 +122,7 @@ public class SimpleExecutor extends BaseExecutor {
             return param.toString();
         } else if (param instanceof Map) {  // 判断 map 类型
             Map<String, Object> map = (Map) param;
+            //    TODO 自定义类或存在问题
             return map.toString();
 
         } else { // 自定义类型的
