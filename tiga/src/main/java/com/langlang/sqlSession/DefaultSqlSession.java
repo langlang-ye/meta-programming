@@ -1,5 +1,6 @@
 package com.langlang.sqlSession;
 
+import com.langlang.exceptions.TooManyResultsException;
 import com.langlang.executor.Executor;
 import com.langlang.pojo.Configuration;
 import com.langlang.pojo.MappedStatement;
@@ -45,11 +46,11 @@ public class DefaultSqlSession implements SqlSession {
 
     @Override
     public <T> T selectOne(String statementId, Object param) throws Exception {
-        List<T> lists = selectList(statementId, param);
-        if (lists.size() == 1) {
-            return lists.get(0);
+        List<T> list = selectList(statementId, param);
+        if (list.size() == 1) {
+            return list.get(0);
         } else {
-            throw new RuntimeException("查询结果集为空或者返回结果过多");
+            throw new TooManyResultsException("Expected one result (or null) to be returned by selectOne(), but found: " + list.size());
         }
     }
 
