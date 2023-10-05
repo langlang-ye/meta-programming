@@ -49,7 +49,7 @@ public class XMLMapperBuilder {
             mappedStatement.setSqlCommandType(sqlCommandType);
 
             String key = namespace + "." + id;
-            // TODO 添加前需要验证 key 是否唯一
+            // 替换为 StrictHashMap, 重复的 key 抛出异常
             configuration.getMappedStatementMap().put(key, mappedStatement);
 
         }

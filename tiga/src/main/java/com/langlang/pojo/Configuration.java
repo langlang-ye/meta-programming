@@ -4,6 +4,7 @@ import com.langlang.sqlSession.DefaultSqlSession;
 import com.langlang.sqlSession.MapperRegistry;
 import com.langlang.type.TypeAliasRegistry;
 import com.langlang.type.TypeHandlerRegistry;
+import com.langlang.utils.StrictHashMap;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -15,10 +16,12 @@ import java.util.Map;
  */
 public class Configuration {
 
+    private static final String statementId = "Mapped Statements collection";
+
     private DataSource dataSource;
 
     // key: statementId; value: 封装的mappedStatement 对象
-    Map<String, MappedStatement> mappedStatementMap = new HashMap<>();
+    Map<String, MappedStatement> mappedStatementMap = new StrictHashMap<>(statementId);
 
     private MapperRegistry mapperRegistry = new MapperRegistry();
 
