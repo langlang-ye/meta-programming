@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,6 +93,7 @@ public class SimpleExecutor extends BaseExecutor {
         TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
 
         List<ParameterMapping> parameterMappingList = boundSql.getParameterMappingList();
+        List<Object> columnValues = new ArrayList<>();
         for (int i = 0; i < parameterMappingList.size(); i++) { // 使用下标遍历, 后面设置参数有用到
             String content = parameterMappingList.get(i).getContent();
             Object value;
@@ -106,29 +108,31 @@ public class SimpleExecutor extends BaseExecutor {
                 Field declaredField = clazz.getDeclaredField(content);
                 declaredField.setAccessible(true);
                 value = declaredField.get(param);
-
             }
-            // todo 存在无用参数的输出
-            System.out.println("==> Parameters: " + convertParamToString(typeHandlerRegistry, param, clazz));
             preparedStatement.setObject(i + 1, value);
+            columnValues.add(value);
         }
+        String paramsLog = convertColumnValuesToString(columnValues);
+        System.out.println("==> Parameters:  " + paramsLog);
         return preparedStatement;
     }
 
-    private String convertParamToString(TypeHandlerRegistry typeHandlerRegistry, Object param, Class<?> clazz) {
-        if (param == null) {
-            return null;
-        } else if (typeHandlerRegistry.hasTypeHandler(clazz)) {  // 判断基础类型
-            return param.toString();
-        } else if (param instanceof Map) {  // 判断 map 类型
-            Map<String, Object> map = (Map) param;
-            //    TODO 自定义类或存在问题
-            return map.toString();
-
-        } else { // 自定义类型的
-            return param.toString();
-
+    private String convertColumnValuesToString(List<Object> columnValues) {
+        List<Object> useParamList = new ArrayList<Object>(columnValues.size());
+        for (Object value : columnValues) {
+            if (value == null) {
+                useParamList.add("null");
+            } else {
+                useParamList.add(objectValueString(value) + "(" + value.getClass().getSimpleName() + ")");
+            }
         }
+        // 集合转为字符串
+        String parameters = useParamList.toString();
+        return parameters.substring(1, parameters.length() - 1);
+    }
+
+    private String objectValueString(Object value) {
+        return value.toString();
     }
 
 }
