@@ -1,12 +1,19 @@
 package com.langlang.utils;
 
 import java.lang.reflect.Method;
-import java.util.List;
+import java.lang.reflect.Type;
+import java.util.*;
 
 /**
  * 反射常用的工具类
  */
 public class ReflectUtils {
+
+    private static final Set<Class> set = new HashSet<>();
+
+    private static final Set<Class> superClassSet = new HashSet<>();
+    private static final Set<Class> superInterfacesSet = new HashSet<>();
+    private static Class<Object> obj = Object.class;
 
     /**
      * 通过反射调用指定属性XXX的getXXX, 返回指定属性的值
@@ -45,9 +52,80 @@ public class ReflectUtils {
         }
     }
 
-    // todo: 获取该类所有的父类和接口
+    /**
+     * 获取该类所有的父类和接口
+     *
+     * @param clazz
+     * @return
+     */
 
-    // todo: 两个类 是否存在继承 或者实现关系
+    public static Set<Class> getSuperClassAndInterfaces(Class clazz) {
+        Type superclass = clazz.getSuperclass();
+        Class[] interfaces = clazz.getInterfaces();
+
+        if (superclass != null && !superclass.equals(obj)) {
+            getSuperClassAndInterfaces((Class) superclass);
+        }
+        for (Class genericInterface : interfaces) {
+            getSuperClassAndInterfaces(genericInterface);
+        }
+
+        if (superclass != null && !superclass.equals(obj)) {
+            set.add((Class) superclass);
+        }
+
+        for (Class i : interfaces) {
+            set.add(i);
+        }
+
+        return set;
+
+    }
+
+    /**
+     * 获取该类所有的父类
+     *
+     * @param clazz
+     * @return
+     */
+    public static Set<Class> getAllSuperClass(Class clazz) {
+        Type superclass = clazz.getSuperclass();
+
+        if (!superclass.equals(obj)) {
+            getAllSuperClass((Class) superclass);
+            superClassSet.add((Class) superclass);
+        }
+
+        return superClassSet;
+    }
+
+    /**
+     * 获取该类的所有接口(去重)
+     * @param clazz
+     * @return
+     */
+    public static Set<Class> getAllSuperInterfaces(Class clazz) {
+        Type superclass = clazz.getSuperclass();
+        Class[] interfaces = clazz.getInterfaces();
+
+        if (superclass != null && !superclass.equals(obj)) {
+            getAllSuperInterfaces((Class) superclass);
+        }
+        for (Class genericInterface : interfaces) {
+            getAllSuperInterfaces(genericInterface);
+        }
+
+        for (Class i : interfaces) {
+            superInterfacesSet.add(i);
+        }
+        return superInterfacesSet;
+
+    }
+
+    // todo 两个类之间的关系
+    public static boolean getRef(Class clazz) {
+        return false;
+    }
 
 
 
