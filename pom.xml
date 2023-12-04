@@ -5,15 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.langlang</groupId>
-    <artifactId>metaprogramming</artifactId>
+    <artifactId>meta-programming</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>tiga</module>
         <!-- 测试项目 -->
-        <module>tiga_test</module>
+        <module>tiga-test</module>
+
         <module>eorm</module>
-        <module>eorm_test</module>
+        <!-- 测试项目 -->
+        <module>eorm-test</module>
     </modules>
 
     <properties>
