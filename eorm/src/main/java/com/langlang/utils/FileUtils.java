@@ -13,7 +13,7 @@ public class FileUtils {
         int fileNum = 0, folderNum = 0;
         File file = new File(path);
         if (file.exists()) {
-            LinkedList<File> list = new LinkedList<File>();
+            LinkedList<File> list = new LinkedList<>();
             File[] files = null;
             list.add(file);
             File temp_file;
@@ -22,7 +22,7 @@ public class FileUtils {
                 files = temp_file.listFiles();
                 for (File tmpFile : files) {
                     if (tmpFile.isDirectory()) {
-                        //System.out.println("文件夹:" + tmpFile.getAbsolutePath());
+                        System.out.println("文件夹:" + tmpFile.getAbsolutePath());
                         list.add(tmpFile);
                         folderNum++;
                     } else {
@@ -30,7 +30,11 @@ public class FileUtils {
                             System.out.println("文件:" + tmpFile.getAbsolutePath());
                             fileNum++;
                         }*/
-                        fileNum++;
+
+                        if (tmpFile.toString().endsWith(".java")) {
+                            fileNum++;
+                        }
+//                        fileNum++;
                         BasicFileAttributes attributes = null; // 获取文件的最后的修改时间 Linux 系统不记录文件的创建时间？
                         try {
                             attributes = Files.readAttributes(tmpFile.toPath(), BasicFileAttributes.class);
@@ -40,7 +44,7 @@ public class FileUtils {
 
                         Instant s = attributes.lastModifiedTime().toInstant();
                         String s1 = s.atOffset(ZoneOffset.ofHours(8)).toString();
-                        System.out.println(s1);
+                        System.out.println(tmpFile + " --> " + s1);
 
                     }
                 }

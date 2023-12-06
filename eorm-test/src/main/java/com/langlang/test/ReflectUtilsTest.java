@@ -1,12 +1,16 @@
 package com.langlang.test;
 
-import cn.hutool.core.util.ReflectUtil;
 import com.langlang.utils.ReflectUtils;
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.util.ReflectionUtils;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.ResourceLoader;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
 
 public class ReflectUtilsTest {
@@ -49,14 +53,16 @@ public class ReflectUtilsTest {
 
         boolean b = superClassGenericType.containsAll(allSuperClass);
         System.out.println(b);
-
-
     }
 
     @Test
     public void test04() {
-        Class annotationConfigApplicationContextClass = AnnotationConfigApplicationContext.class;
-        boolean ref = ReflectUtils.getRef(annotationConfigApplicationContextClass);
+        Class defaultListableBeanFactory = DefaultListableBeanFactory.class;
+        Set<Class> ref = ReflectUtils.getRef(defaultListableBeanFactory, Object.class);
 
+        Object obj = null;
+        if (obj instanceof Object) {
+            System.out.println(true);
+        }
     }
 }

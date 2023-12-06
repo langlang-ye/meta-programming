@@ -2,7 +2,10 @@ package com.langlang.utils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 反射常用的工具类
@@ -119,12 +122,36 @@ public class ReflectUtils {
             superInterfacesSet.add(i);
         }
         return superInterfacesSet;
-
     }
 
-    // todo 两个类之间的关系
-    public static boolean getRef(Class clazz) {
-        return false;
+    // todo 两个类之间的关系: 返回继承或实现关系的中间
+    /**
+     *
+     * @param clazz 类实例对象
+     * @param targetClazz 接口或者父类
+     * @return
+     */
+    public static Set<Class> getRef(Class clazz, Class targetClazz) {
+        if (clazz.equals(targetClazz)) {
+            return null;
+        }
+        Set<Class> classSet = new LinkedHashSet<>();
+
+        if (!targetClazz.isInterface()) { // 目标类型是类
+            Class superclass = clazz.getSuperclass();
+
+            while (!superclass.equals(obj)) {
+                if (!superclass.equals(targetClazz)) {
+                    classSet.add(superclass);
+                    superclass = superclass.getSuperclass();
+                } else {
+                    break;
+                }
+            }
+        } else {     // 目标类型是接口
+
+        }
+        return classSet;
     }
 
 
