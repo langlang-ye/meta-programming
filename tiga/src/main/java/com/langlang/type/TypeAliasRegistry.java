@@ -84,6 +84,7 @@ public class TypeAliasRegistry {
      * @param <T>
      * @return
      */
+    @SuppressWarnings("unchecked")
     public <T> Class<T> resolveAlias(String string) {
         try {
             if (string == null) {

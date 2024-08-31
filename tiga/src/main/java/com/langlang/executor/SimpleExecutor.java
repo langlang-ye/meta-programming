@@ -26,6 +26,7 @@ import java.util.Map;
 public class SimpleExecutor extends BaseExecutor {
 
     @Override
+    @SuppressWarnings("unchecked")
     protected <E> List<E> doQuery(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object param) throws Exception {
         PreparedStatement preparedStatement = parameterHandler(configuration, mappedStatement, boundSql, param);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -82,6 +83,7 @@ public class SimpleExecutor extends BaseExecutor {
      * @return
      * @throws Exception
      */
+    @SuppressWarnings("unchecked")
     public PreparedStatement parameterHandler(Configuration configuration, MappedStatement mappedStatement, BoundSql boundSql, Object param) throws Exception {
         Connection connection = configuration.getDataSource().getConnection(); // 获取连接
 

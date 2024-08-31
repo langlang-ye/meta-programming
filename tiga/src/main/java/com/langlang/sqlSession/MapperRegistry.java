@@ -25,6 +25,7 @@ public class MapperRegistry {
      * @param <T>
      * @return
      */
+    @SuppressWarnings("unchecked")
     public <T> T getMapper(Class<?> type, DefaultSqlSession sqlSession) {
         final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) mappers.get(type);
         return mapperProxyFactory.newInstance(sqlSession);

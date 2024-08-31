@@ -74,6 +74,7 @@ public abstract class BaseExecutor implements Executor {
      * @return
      * @throws Exception
      */
+   @SuppressWarnings("unchecked")
     public <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, String key, BoundSql boundSql, Object params) throws Exception {
         // 每次查询优先从缓存中查找, 缓存中没有再查询数据库
         List<E> list = (List<E>) localCache.get(key);

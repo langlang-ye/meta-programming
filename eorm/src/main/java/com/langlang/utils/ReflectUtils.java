@@ -25,6 +25,7 @@ public class ReflectUtils {
      * @param obj
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static Object invokeGet(String fieldName, Object obj) {
         try {
             Class c = obj.getClass();
