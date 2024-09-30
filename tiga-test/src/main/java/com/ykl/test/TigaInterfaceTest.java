@@ -7,8 +7,8 @@ import com.ykl.common.Page;
 import com.ykl.dao.PersonDao;
 import com.ykl.pojo.Person;
 import com.ykl.pojo.PersonBO;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +24,7 @@ public class TigaInterfaceTest {
 
     PersonDao personDao;
 
-    @Before
+    @BeforeEach
     public void testBefore() throws Exception{
         var resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         var sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);

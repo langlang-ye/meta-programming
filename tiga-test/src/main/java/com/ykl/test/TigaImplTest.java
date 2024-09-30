@@ -2,7 +2,7 @@ package com.ykl.test;
 
 import com.ykl.dao.PersonDaoImpl;
 import com.ykl.pojo.Person;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

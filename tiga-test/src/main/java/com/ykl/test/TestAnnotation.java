@@ -4,8 +4,8 @@ import com.langlang.io.Resources;
 import com.langlang.sqlSession.SqlSessionFactoryBuilder;
 import com.ykl.dao.StarDao;
 import com.ykl.pojo.Star;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,8 @@ public class TestAnnotation {
 
     StarDao stuDao;
 
-    @Before
+    // JUnit5 BeforeEach 注解替换了  Before
+    @BeforeEach
     public void testBefore() throws Exception{
         var resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         var sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
@@ -59,7 +60,6 @@ public class TestAnnotation {
     }
 
 
-    //
     @Test
     public void testFindAll() {
         List<Star> all = stuDao.findAll();
