@@ -14,7 +14,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +58,13 @@ public class SimpleExecutor extends BaseExecutor {
                     // 使用反射或者内省, 根据数据库表和实体类的对应关系, 完成封装
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(columnName, resultTypeClass);
                     Method writeMethod = propertyDescriptor.getWriteMethod();
+
+                    // LocalDateTime 转 Date 后续应该有更合适的方法
+                    if (value instanceof LocalDateTime localDateTime) {
+                        Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant(); // 转为 Instant
+                        Date date = Date.from(instant); // 转为 Date
+                        value = date;
+                    }
                     writeMethod.invoke(o, value);
                 }
                 list.add(o);

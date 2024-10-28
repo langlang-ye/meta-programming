@@ -3,27 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.langlang</groupId>
+        <artifactId>meta-programming</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-    <groupId>com.langlang</groupId>
-    <artifactId>meta-programming</artifactId>
-    <packaging>pom</packaging>
-    
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>tiga</module>
-        <!-- 测试项目 -->
-        <module>tiga-test</module>
-
-        <module>eorm</module>
-        <!-- 测试项目 -->
-        <module>eorm-test</module>
-        <module>spring-x</module>
-        <module>tiga-spring-boot-starter</module>
-    </modules>
+    <artifactId>tiga-spring-boot-starter</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
 </project>

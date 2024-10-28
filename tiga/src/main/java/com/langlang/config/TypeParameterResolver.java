@@ -18,9 +18,9 @@ public class TypeParameterResolver {
     private static Class<?> resolveType(Method method, Type type) {
         if (type instanceof TypeVariable) {
             return null;
-        } else if (type instanceof ParameterizedType) {
+        } else if (type instanceof ParameterizedType parameterizedType) {
             // 解析集合类型中的泛型类型List<Star> 得到 Star 类型
-            Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
+            Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
             return (Class<?>) actualTypeArguments[0];
         } else if (type instanceof GenericArrayType) {
             return null;
